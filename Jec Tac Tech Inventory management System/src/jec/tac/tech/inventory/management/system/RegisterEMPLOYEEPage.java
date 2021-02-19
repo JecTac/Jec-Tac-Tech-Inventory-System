@@ -5,6 +5,9 @@
  */
 package jec.tac.tech.inventory.management.system;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jimmy
@@ -66,6 +69,12 @@ public class RegisterEMPLOYEEPage extends javax.swing.JDialog {
         EmployeePW.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmployeePWActionPerformed(evt);
+            }
+        });
+        
+        SUBMITREGISTER.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SUBMITREGISTERActionPerformed(evt);
             }
         });
 
@@ -149,6 +158,28 @@ public class RegisterEMPLOYEEPage extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_EmployeeFNActionPerformed
 
+    private void SUBMITREGISTERActionPerformed(java.awt.event.ActionEvent evt) {
+        try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+            
+            String sql = "insert into employeesTbl values (employees_Num, ?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, EmployeeFN.getText());
+            ps.setInt(2, Integer.parseInt(EmployeeID.getText()));
+            
+            if(EmployeePW.getText().equals(EmployeePWRepeat.getText())){
+                ps.setString(3, EmployeePW.getText());
+            } else{
+                JOptionPane.showMessageDialog(null, "Your password does not match!", "ERROR", JOptionPane.WARNING_MESSAGE);
+            }
+            
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Registration Successful!");
+            con.close();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }  
     /**
      * @param args the command line arguments
      */
