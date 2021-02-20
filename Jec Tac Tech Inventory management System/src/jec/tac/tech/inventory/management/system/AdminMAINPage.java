@@ -89,11 +89,27 @@ public class AdminMAINPage extends javax.swing.JFrame {
 
     private void ManageRecordsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManageRecordsButtonActionPerformed
         // TODO add your handling code here:
+        RecordsPageADMINONLY rpao = new RecordsPageADMINONLY();
+        rpao.setVisible(true);
+        
+        dispose();
     }//GEN-LAST:event_ManageRecordsButtonActionPerformed
 
     private void ItemResupplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemResupplyButtonActionPerformed
         // TODO add your handling code here:
+        ItemResupplyPAPERMenu irpm = new ItemResupplyPAPERMenu();
+       irpm.setVisible(true);
+       
+       dispose();
     }//GEN-LAST:event_ItemResupplyButtonActionPerformed
+    
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+        WelcomeScreen ws = new WelcomeScreen();
+        ws.setVisible(true);
+        
+        dispose();
+    }//GEN-LAST:event_BackButtonActionPerformed 
 
     /**
      * @param args the command line arguments
