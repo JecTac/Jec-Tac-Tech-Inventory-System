@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jec.tac.tech.inventory.management.system;
 
-/**
- *
- * @author jimmy
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 public class EmployeeLogInPage extends javax.swing.JFrame {
 
     /**
@@ -102,25 +99,77 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LogInActionPerformed
+    private void LogInActionPerformed(java.awt.event.ActionEvent evt) {
+        Function1 f1 = new Function1();
+        Function2 f2 = new Function2();
+        ResultSet rs1, rs2;
+        String en = "employees_Name";
+        
+        if(evt.getSource() == LogIn){
+            rs1 = f1.find(IDEntry.getText());
+            rs2 = f2.find(IDEntry.getText(), PasswordEntry.getText());
+            try{
+                if(rs1.next()){
+                    if(rs2.next()){
+                    JOptionPane.showMessageDialog(null, "Welcome " + rs1.getString(en));
+                    //DIRECT TO EMPLOYEE MAIN PAGE
+                    //DISPOSE PAGE
+                    } else{
+                        JOptionPane.showMessageDialog(null, "Wrong Password");
+                    }
+                } else{
+                    JOptionPane.showMessageDialog(null, "ID Does Not Exist");
+                    //REMOVE JOPTIONPANE, DIRECT TO LOG IN ERROR PAGE
+                    //DISPOSE PAGE
+                }
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+    private class Function1{
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        public ResultSet find(String s){
+            try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+            ps = con.prepareStatement("SELECT * FROM employeestbl WHERE employees_ID = ?" );
+            ps.setString(1, IDEntry.getText());
+            rs = ps.executeQuery();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error1" + e.getMessage());
+            }
+            return rs;
+        }
+    }
 
-    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BackButtonActionPerformed
+    private class Function2{
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        public ResultSet find(String s, String sr){
+            try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+            ps = con.prepareStatement("SELECT * FROM employeestbl WHERE employees_ID = ? AND employees_Pass = ?" );
+            ps.setString(1, IDEntry.getText());
+            ps.setString(2, PasswordEntry.getText());
+            rs = ps.executeQuery();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error2" + e.getMessage());
+            }
+            return rs;
+        }
+    }
+    
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+       
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -147,7 +196,6 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
     private javax.swing.JLabel EmployeeLogin;
     private javax.swing.JLabel EnterID;
@@ -155,5 +203,4 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
     private javax.swing.JTextField IDEntry;
     private javax.swing.JButton LogIn;
     private javax.swing.JPasswordField PasswordEntry;
-    // End of variables declaration//GEN-END:variables
 }
