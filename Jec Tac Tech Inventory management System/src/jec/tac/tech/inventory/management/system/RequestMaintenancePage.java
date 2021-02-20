@@ -16,14 +16,13 @@ import javax.swing.JOptionPane;
  * @author jimmy
  */
 public class RequestMaintenancePage extends javax.swing.JFrame {
-
+    Connection con = null;
+    ResultSet rs = null;
+    PreparedStatement ps = null;
     /**
      * Creates new form RequestItemPage
      */
-public class RequestMaintenancePage extends javax.swing.JFrame {
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement ps = null;
+        
     public RequestMaintenancePage() {
         initComponents();
     }
@@ -141,18 +140,12 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    }
+    
 
     private void ITEMNAMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ITEMNAMEActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ITEMNAMEActionPerformed
-    private void ITEMNAMEActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void SubmitMaintenanceReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitMaintenanceReqActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SubmitMaintenanceReqActionPerformed
+  
     private void SubmitMaintenanceReqActionPerformed(java.awt.event.ActionEvent evt) {
 
         try{
@@ -181,10 +174,7 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BackButtonActionPerformed
-    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
+  
     /**
      * @param args the command line arguments
      */
