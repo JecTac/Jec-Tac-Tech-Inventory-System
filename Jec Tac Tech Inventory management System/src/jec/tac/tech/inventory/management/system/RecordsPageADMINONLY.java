@@ -89,6 +89,10 @@ public class RecordsPageADMINONLY extends javax.swing.JFrame {
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // TODO add your handling code here:
+        AdminMAINPage amp = new AdminMAINPage();
+        amp.setVisible(true);
+        
+        dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
 
     /**
