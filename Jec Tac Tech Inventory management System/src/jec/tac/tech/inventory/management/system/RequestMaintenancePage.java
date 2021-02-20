@@ -4,12 +4,6 @@
  * and open the template in the editor.
  */
 package jec.tac.tech.inventory.management.system;
-
-/**
- *
- * @author jimmy
- */
-public class RequestMaintenancePage extends javax.swing.JFrame {
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,6 +11,11 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+/**
+ *
+ * @author jimmy
+ */
+public class RequestMaintenancePage extends javax.swing.JFrame {
 
     /**
      * Creates new form RequestItemPage
