@@ -4,13 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
-public class EmployeeLogInPage extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EmployeeLogInPage
-     */
+public class EmployeeLogInPage extends javax.swing.JFrame {
+    
     public EmployeeLogInPage() {
         initComponents();
     }
@@ -106,6 +106,7 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         Function2 f2 = new Function2();
         ResultSet rs1, rs2;
         String en = "employees_Name";
+        PreparedStatement ps = null;
         
         if(evt.getSource() == LogIn){
             rs1 = f1.find(IDEntry.getText());
@@ -113,9 +114,20 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
             try{
                 if(rs1.next()){
                     if(rs2.next()){
-                    JOptionPane.showMessageDialog(null, "Welcome " + rs1.getString(en));
-                    //DIRECT TO EMPLOYEE MAIN PAGE
-                    //DISPOSE PAGE
+                        long millis = System.currentTimeMillis();
+                        Timestamp timestamp = new Timestamp(millis);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyy hh.mm.ss");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+
+                        String sql = "INSERT INTO logInRecordTbl VALUES (logIn_Num, ?, ?)";
+                        ps = con.prepareStatement(sql);
+                        ps.setString(1, rs1.getString(en));
+                        ps.setTimestamp(2, timestamp);
+                        
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Welcome " + rs1.getString(en));
+                        //DIRECT TO EMPLOYEE MAIN PAGE
+                        //DISPOSE PAGE
                     } else{
                         JOptionPane.showMessageDialog(null, "Wrong Password");
                     }
@@ -168,8 +180,8 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         
     }
 
+  
     public static void main(String args[]) {
-       
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -186,15 +198,14 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EmployeeLogInPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new EmployeeLogInPage().setVisible(true);
             }
         });
     }
+
 
     private javax.swing.JButton BackButton;
     private javax.swing.JLabel EmployeeLogin;
