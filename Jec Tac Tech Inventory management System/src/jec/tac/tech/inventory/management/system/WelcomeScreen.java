@@ -126,14 +126,26 @@ public class WelcomeScreen extends javax.swing.JFrame {
 
     private void AdminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminButtonActionPerformed
         // TODO add your handling code here:
+        AdminLogInPage adlp = new AdminLogInPage();
+        adlp.setVisible(true);
+        
+        dispose();
     }//GEN-LAST:event_AdminButtonActionPerformed
 
     private void EmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeButtonActionPerformed
         // TODO add your handling code here:
+        EmployeeLogInPage emlp = new EmployeeLogInPage();
+        emlp.setVisible(true);
+     
+        dispose();
     }//GEN-LAST:event_EmployeeButtonActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
         // TODO add your handling code here:
+        RegisterPage rp = new RegisterPage();
+        rp.setVisible(true);
+        
+        dispose();
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     /**
