@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package jec.tac.tech.inventory.management.system;
 
 import java.sql.Connection;
@@ -8,9 +13,15 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
-
+/**
+ *
+ * @author jimmy
+ */
 public class EmployeeLogInPage extends javax.swing.JFrame {
-    
+
+    /**
+     * Creates new form EmployeeLogInPage
+     */
     public EmployeeLogInPage() {
         initComponents();
     }
@@ -99,9 +110,9 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         );
 
         pack();
-    }
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void LogInActionPerformed(java.awt.event.ActionEvent evt) {
+    private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
         Function1 f1 = new Function1();
         Function2 f2 = new Function2();
         ResultSet rs1, rs2;
@@ -140,7 +151,7 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
-    }
+    }//GEN-LAST:event_LogInActionPerformed
     private class Function1{
         Connection con = null;
         ResultSet rs = null;
@@ -176,12 +187,19 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         }
     }
     
-    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        
-    }
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BackButtonActionPerformed
 
-  
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -198,7 +216,9 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EmployeeLogInPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-       
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new EmployeeLogInPage().setVisible(true);
@@ -206,7 +226,7 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         });
     }
 
-
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
     private javax.swing.JLabel EmployeeLogin;
     private javax.swing.JLabel EnterID;
@@ -214,4 +234,5 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
     private javax.swing.JTextField IDEntry;
     private javax.swing.JButton LogIn;
     private javax.swing.JPasswordField PasswordEntry;
+    // End of variables declaration//GEN-END:variables
 }
