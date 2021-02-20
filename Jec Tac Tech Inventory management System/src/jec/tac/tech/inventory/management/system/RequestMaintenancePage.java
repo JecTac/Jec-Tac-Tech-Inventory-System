@@ -1,5 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package jec.tac.tech.inventory.management.system;
 
+/**
+ *
+ * @author jimmy
+ */
+public class RequestMaintenancePage extends javax.swing.JFrame {
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +18,9 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
+    /**
+     * Creates new form RequestItemPage
+     */
 public class RequestMaintenancePage extends javax.swing.JFrame {
         Connection con = null;
         ResultSet rs = null;
@@ -15,7 +28,6 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
     public RequestMaintenancePage() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -24,7 +36,6 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -33,25 +44,21 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
         IssueDescription = new javax.swing.JTextField();
         SubmitMaintenanceReq = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("JEC TAC TECH INVENTORY");
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("MAINTENANCE/REPAIRS FORM");
-
         jLabel3.setText("Item Name:");
 
         jLabel4.setText("Issue/Description:");
-        
+
         try{
           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
           String sql = "SELECT * FROM machinestbl";
           ps = con.prepareStatement(sql);
           rs = ps.executeQuery();
-          
+
           while(rs.next()){
               String name = rs.getString("machine_Name");
               ITEMNAME.addItem(name);
@@ -61,29 +68,26 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
         }
 
         ITEMNAME.setBackground(new java.awt.Color(102, 102, 102));
+        ITEMNAME.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         //ITEMNAME.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ITEMNAME.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ITEMNAMEActionPerformed(evt);
             }
         });
-
         IssueDescription.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-
         SubmitMaintenanceReq.setText("SUBMIT");
         SubmitMaintenanceReq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SubmitMaintenanceReqActionPerformed(evt);
             }
         });
-
         BackButton.setText("BACK");
         BackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BackButtonActionPerformed(evt);
             }
         });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,42 +141,60 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
         );
 
         pack();
+    }// </editor-fold>//GEN-END:initComponents
     }
 
+    private void ITEMNAMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ITEMNAMEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ITEMNAMEActionPerformed
     private void ITEMNAMEActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
+    private void SubmitMaintenanceReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitMaintenanceReqActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SubmitMaintenanceReqActionPerformed
     private void SubmitMaintenanceReqActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
         try{
             long millis = System.currentTimeMillis();
             Timestamp timestamp = new Timestamp(millis);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyy hh.mm.ss");
             String formatedStrDate = sdf.format(timestamp);
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
-            
+
             String sql = "INSERT INTO repairReqTbl VALUES (repairReq_Num, ?, ?, ?)";
             String selectedItem = (String) ITEMNAME.getSelectedItem();
             ps = con.prepareStatement(sql);
             ps.setTimestamp(1, timestamp);
             ps.setString(2, selectedItem);
             ps.setString(3, IssueDescription.getText());
-            
+
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Your request was successfully submitted.");
-            
+
             con.close();
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
     }
 
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BackButtonActionPerformed
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        
+
     }
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -189,7 +211,11 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RequestMaintenancePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-       
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RequestMaintenancePage().setVisible(true);
@@ -197,6 +223,7 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
         });
     }
 
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
     private javax.swing.JComboBox<String> ITEMNAME;
     private javax.swing.JTextField IssueDescription;
@@ -205,4 +232,5 @@ public class RequestMaintenancePage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    // End of variables declaration//GEN-END:variables
 }
