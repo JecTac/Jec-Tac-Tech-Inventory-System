@@ -110,6 +110,13 @@ public class ItemResupplyMiscMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        AdminMAINPage amp = new AdminMAINPage();
+        amp.setVisible(true);
+        
+        dispose();
+    }
     /**
      * @param args the command line arguments
      */
