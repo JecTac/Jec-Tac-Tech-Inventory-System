@@ -106,10 +106,18 @@ public class AdminLogInPage extends javax.swing.JFrame {
 
     private void LogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogInActionPerformed
         // TODO add your handling code here:
+        AdminMAINPage amp = new AdminMAINPage();
+        amp.setVisible(true);
+        
+        dispose();
     }//GEN-LAST:event_LogInActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // TODO add your handling code here:
+        WelcomeScreen ws = new WelcomeScreen();
+        ws.setVisible(true);
+        
+        dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
 
     /**
