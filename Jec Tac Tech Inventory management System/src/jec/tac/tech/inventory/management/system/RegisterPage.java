@@ -111,6 +111,10 @@ public class RegisterPage extends javax.swing.JFrame {
 
     private void EmployeeREGISTERButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeREGISTERButtonActionPerformed
         // TODO add your handling code here:
+        RegisterEMPLOYEEPage rep = new RegisterEMPLOYEEPage();
+        rep.setVisible(true);
+        
+        dispose();
     }//GEN-LAST:event_EmployeeREGISTERButtonActionPerformed
 
     /**
