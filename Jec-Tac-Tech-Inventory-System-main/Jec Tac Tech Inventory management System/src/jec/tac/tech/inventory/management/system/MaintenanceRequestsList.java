@@ -28,7 +28,7 @@ public class MaintenanceRequestsList extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        MaintenanceReqScrollPane = new javax.swing.JScrollPane();
         MaintenanceTable = new javax.swing.JTable();
         BackButton = new javax.swing.JButton();
 
@@ -49,7 +49,7 @@ public class MaintenanceRequestsList extends javax.swing.JFrame {
             }
         ));
         MaintenanceTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        jScrollPane1.setViewportView(MaintenanceTable);
+        MaintenanceReqScrollPane.setViewportView(MaintenanceTable);
 
         BackButton.setText("BACK");
 
@@ -60,7 +60,7 @@ public class MaintenanceRequestsList extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                    .addComponent(MaintenanceReqScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -75,7 +75,7 @@ public class MaintenanceRequestsList extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MaintenanceReqScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(BackButton)
                 .addContainerGap())
@@ -122,8 +122,8 @@ public class MaintenanceRequestsList extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
+    private javax.swing.JScrollPane MaintenanceReqScrollPane;
     private javax.swing.JTable MaintenanceTable;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
