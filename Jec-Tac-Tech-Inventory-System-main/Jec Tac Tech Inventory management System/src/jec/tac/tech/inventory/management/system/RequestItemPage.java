@@ -27,6 +27,7 @@ public class RequestItemPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ItemType = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -37,7 +38,7 @@ public class RequestItemPage extends javax.swing.JFrame {
         SubmitItemReq = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        PaperButton = new javax.swing.JRadioButton();
+        Papers = new javax.swing.JRadioButton();
         MiscButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,13 +86,10 @@ public class RequestItemPage extends javax.swing.JFrame {
 
         jLabel5.setText("Item Type:");
 
-        PaperButton.setText("Paper");
-        PaperButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PaperButtonActionPerformed(evt);
-            }
-        });
+        ItemType.add(Papers);
+        Papers.setText("Papers");
 
+        ItemType.add(MiscButton);
         MiscButton.setText("Misc.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,35 +103,35 @@ public class RequestItemPage extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(183, 183, 183)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(MiscButton)
-                            .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Quantity)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(AddItems)
-                                            .addGap(0, 0, Short.MAX_VALUE))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel5))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(PaperButton)
-                                        .addComponent(ITEMNAME, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Quantity)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(AddItems)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(SubmitItemReq, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(134, Short.MAX_VALUE))
+                                .addComponent(SubmitItemReq, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ITEMNAME, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(Papers)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(MiscButton)))))))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +143,7 @@ public class RequestItemPage extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(PaperButton)
+                    .addComponent(Papers)
                     .addComponent(MiscButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -182,10 +180,6 @@ public class RequestItemPage extends javax.swing.JFrame {
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_BackButtonActionPerformed
-
-    private void PaperButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaperButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PaperButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,8 +220,9 @@ public class RequestItemPage extends javax.swing.JFrame {
     private javax.swing.JButton AddItems;
     private javax.swing.JButton BackButton;
     private javax.swing.JComboBox<String> ITEMNAME;
+    private javax.swing.ButtonGroup ItemType;
     private javax.swing.JRadioButton MiscButton;
-    private javax.swing.JRadioButton PaperButton;
+    private javax.swing.JRadioButton Papers;
     private javax.swing.JTextField Quantity;
     private javax.swing.JButton SubmitItemReq;
     private javax.swing.JLabel jLabel1;
