@@ -28,14 +28,14 @@ public class MaintenanceStatus extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        MaintenanceScrollPane = new javax.swing.JScrollPane();
         MaintenanceTable = new javax.swing.JTable();
         BackButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("MAINTENANCE REQUESTS");
+        jLabel1.setText("ITEMS ON MAINTENANCE");
 
         MaintenanceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -45,11 +45,11 @@ public class MaintenanceStatus extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Item Name", "Issue/Description"
+                "Item Name", "Maintenance Status"
             }
         ));
         MaintenanceTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        jScrollPane1.setViewportView(MaintenanceTable);
+        MaintenanceScrollPane.setViewportView(MaintenanceTable);
 
         BackButton.setText("BACK");
 
@@ -60,7 +60,7 @@ public class MaintenanceStatus extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                    .addComponent(MaintenanceScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -75,7 +75,7 @@ public class MaintenanceStatus extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MaintenanceScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(BackButton)
                 .addContainerGap())
@@ -124,8 +124,8 @@ public class MaintenanceStatus extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
+    private javax.swing.JScrollPane MaintenanceScrollPane;
     private javax.swing.JTable MaintenanceTable;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
