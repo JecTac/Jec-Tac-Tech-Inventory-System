@@ -1,0 +1,100 @@
+CREATE TABLE papersTbl(
+    paper_ID INT PRIMARY KEY AUTO_INCREMENT,
+    paper_Name VARCHAR(20) UNIQUE,
+    paper_qty INT,
+    paper_price DOUBLE
+);
+
+DESCRIBE papersTbl;
+
+DROP TABLE papersTbl;
+
+INSERT INTO papersTbl (paper_Name, paper_qty, paper_price) VALUES('A4 Ream', 50, 168.00);
+INSERT INTO papersTbl (paper_Name, paper_qty, paper_price) VALUES('Letter Ream', 50, 178.00);
+INSERT INTO papersTbl (paper_Name, paper_qty, paper_price) VALUES('Legal Ream', 50, 188.00);
+
+SELECT * FROM papersTbl;
+
+
+
+CREATE TABLE miscTbl(
+    misc_ID INT PRIMARY KEY AUTO_INCREMENT,
+    misc_Name VARCHAR(50) UNIQUE,
+    misc_qty INT,
+    misc_price DOUBLE
+);
+
+DESCRIBE miscTbl;
+
+DROP TABLE miscTbl;
+
+INSERT INTO miscTbl (misc_Name, misc_qty, misc_price) VALUES('Paper Clip Box', 50, 12.00);
+INSERT INTO miscTbl (misc_Name, misc_qty, misc_price) VALUES('Black Permanent Marker', 50, 44.75);
+INSERT INTO miscTbl (misc_Name, misc_qty, misc_price) VALUES('Black Whiteboard Marker', 50, 56.75);
+
+SELECT * FROM miscTbl;
+
+
+
+CREATE TABLE employeesTbl(
+    employees_Num INT PRIMARY KEY AUTO_INCREMENT,
+    employees_Name VARCHAR(50) UNIQUE,
+    employees_ID VARCHAR(6) UNIQUE,
+    employees_Pass VARCHAR(20)
+);
+
+DESCRIBE employeesTbl;
+
+DROP TABLE employeesTbl;
+
+INSERT INTO employeesTbl (employees_Name, employees_ID, employees_Pass) VALUES('Jericho Vince Tacata', 100001, 'pass');
+INSERT INTO employeesTbl (employees_Name, employees_ID, employees_Pass) VALUES('Benedict Barnachea', 100002, 'pass');
+INSERT INTO employeesTbl (employees_Name, employees_ID, employees_Pass) VALUES('Christian Duero', 100003, 'pass');
+
+SELECT * FROM employeesTbl;
+
+
+
+CREATE TABLE itemReqTbl(
+    itemReq_Num INT PRIMARY KEY AUTO_INCREMENT,
+    itemReq_Time TIMESTAMP,
+    itemReq_Name VARCHAR(50),
+    itemReq_Item VARCHAR(50),
+    itemReq_Qty INT
+);
+
+DESCRIBE itemReqTbl;
+
+DROP TABLE itemReqTbl;
+
+SELECT * FROM itemReqTbl;
+
+
+
+CREATE TABLE repairReqTbl(
+    repairReq_Num INT PRIMARY KEY AUTO_INCREMENT,
+    repairReq_Time TIMESTAMP,
+    repairReq_Name VARCHAR(50),
+    repairReq_Item VARCHAR(50),
+    repairReq_Details VARCHAR(1000)
+);
+
+DESCRIBE repairReqTbl;
+
+DROP TABLE repairReqTbl;
+
+SELECT * FROM repairReqTbl;
+
+
+
+CREATE TABLE logInRecordTbl(
+    logIn_Num INT PRIMARY KEY AUTO_INCREMENT,
+    logIn_Name VARCHAR(50),
+    logIn_Time TIMESTAMP
+);
+
+DESCRIBE logInRecordTbl;
+
+DROP TABLE logInRecordTbl;
+
+SELECT * FROM logInRecordTbl;

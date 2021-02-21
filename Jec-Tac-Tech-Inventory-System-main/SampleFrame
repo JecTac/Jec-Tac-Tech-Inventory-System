@@ -1,0 +1,17 @@
+//WELCOME PAGE FRAME
+public void? main? welcomePage() extends JFrame implements ActionListener {
+  JFrame welcomeFrame = new JFrame();
+  JPanel p = new JPanel();
+
+  JLabel titleLbl = new JLabel("Jec Tac Tech Inventory Management System");
+  JLabel logInLbl = new JLabel("Log In as:");
+  JLabel questionLbl = new JLabel("Not yet registered?");
+
+  JButton adminBtn = new JButton("ADMIN");
+  JButton employeeBtn = new JButton("EMPLOYEE");
+  JButton regBtn = new JButton("REGISTER");
+  
+  
+}
+
+
