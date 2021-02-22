@@ -47,7 +47,7 @@ public class LogInError extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 88, 88));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("WARNING");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
