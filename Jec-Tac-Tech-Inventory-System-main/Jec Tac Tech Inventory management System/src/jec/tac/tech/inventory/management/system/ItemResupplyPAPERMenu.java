@@ -144,18 +144,19 @@ public class ItemResupplyPAPERMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//button likned to admin page
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BackButtonActionPerformed
-
-    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         AdminMAINPage amp = new AdminMAINPage();
         amp.setVisible(true);
         
         dispose();
-    }
+    }//GEN-LAST:event_BackButtonActionPerformed
+
+    //private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+
+   // }
     /**
      * @param args the command line arguments
      */
