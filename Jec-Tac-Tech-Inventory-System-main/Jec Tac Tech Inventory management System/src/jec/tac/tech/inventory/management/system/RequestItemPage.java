@@ -5,12 +5,29 @@
  */
 package jec.tac.tech.inventory.management.system;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jimmy
  */
 public class RequestItemPage extends javax.swing.JFrame {
-
+    Connection con = null;
+    ResultSet rs1, rs2 = null;
+    PreparedStatement ps1, ps2, ps = null;
     /**
      * Creates new form RequestItemPage
      */
@@ -28,6 +45,7 @@ public class RequestItemPage extends javax.swing.JFrame {
     private void initComponents() {
 
         ItemType = new javax.swing.ButtonGroup();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -35,42 +53,42 @@ public class RequestItemPage extends javax.swing.JFrame {
         Quantity = new javax.swing.JTextField();
         AddItems = new javax.swing.JButton();
         SubmitItemReq = new javax.swing.JButton();
+        BackButton = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         Papers = new javax.swing.JRadioButton();
         MiscButton = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        BackButton = new javax.swing.JButton();
+        ItemCounter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("JEC TAC TECH INVENTORY");
+
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(54, 68, 119));
-        jLabel2.setText("REQUEST ITEM FORM");
+        jLabel2.setText("REQUEST ITEM");
 
         jLabel3.setText("Item Name:");
 
         jLabel4.setText("Quantity:");
 
         ITEMNAME.setBackground(new java.awt.Color(102, 102, 102));
-        ITEMNAME.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        //ITEMNAME.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ITEMNAME.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ITEMNAMEActionPerformed(evt);
+                    ITEMNAMEActionPerformed(evt);
             }
         });
 
         Quantity.setText("Input Quantity...");
 
         AddItems.setText("Add");
+        AddItems.setEnabled(false);
         AddItems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddItemsActionPerformed(evt);
             }
         });
 
-        SubmitItemReq.setBackground(new java.awt.Color(0, 153, 0));
         SubmitItemReq.setText("SUBMIT");
         SubmitItemReq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,23 +96,6 @@ public class RequestItemPage extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Item Type:");
-
-        ItemType.add(Papers);
-        Papers.setText("Papers");
-
-        ItemType.add(MiscButton);
-        MiscButton.setText("Misc.");
-
-        jLabel6.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel6.setText(" Item Name: n left");
-
-        jPanel1.setBackground(new java.awt.Color(196, 196, 196));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Request Item");
-
-        BackButton.setBackground(new java.awt.Color(0, 51, 153));
         BackButton.setText("BACK");
         BackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,71 +103,78 @@ public class RequestItemPage extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(BackButton))
-                .addContainerGap())
-        );
+        jLabel5.setText("Item Type:");
+
+        ItemType.add(Papers);
+        Papers.setText("Papers");
+        Papers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PapersActionPerformed(evt);
+            }
+        });
+
+        ItemType.add(MiscButton);
+        MiscButton.setText("Misc.");
+        MiscButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MiscButtonActionPerformed(evt);
+            }
+        });
+
+        ItemCounter.setForeground(new java.awt.Color(255, 51, 51));
+        ItemCounter.setText("Item Name: n left");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(AddItems)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(SubmitItemReq, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ITEMNAME, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ITEMNAME, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(Papers)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(MiscButton))
-                                            .addComponent(jLabel6))
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(jLabel2)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                                        .addComponent(Papers)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(MiscButton))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(ItemCounter))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(25, 25, 25)
+                                    .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(SubmitItemReq, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(20, 20, 20)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(AddItems)
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(Quantity, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)))))))
+                .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel2)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -178,31 +186,247 @@ public class RequestItemPage extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(ITEMNAME, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(ItemCounter)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AddItems)
-                    .addComponent(SubmitItemReq))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(jLabel4)
+                    .addComponent(Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AddItems)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SubmitItemReq)
+                    .addComponent(BackButton))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void PapersActionPerformed(java.awt.event.ActionEvent evt) {
+        AddItems.setEnabled(true);
+        Function1 f1 = new Function1();
+         try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                String sql1 = "SELECT * FROM papersTbl";
+                ps1 = con.prepareStatement(sql1);
+                rs1 = ps1.executeQuery();
+                List<String> ls = new ArrayList<String>();
+                while(rs1.next()){
+                    String name = rs1.getString("paper_Name");
+                    String count = rs1.getString("paper_qty");
+                    ls.add(name);
+                }
+                ITEMNAME.setModel(new javax.swing.DefaultComboBoxModel(ls.toArray()));
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        
+    }
+    
+    private void MiscButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ITEMNAMEActionPerformed
+        AddItems.setEnabled(true);
+        Function2 f2 = new Function2();
+        try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                String sql1 = "SELECT * FROM miscTbl";
+                ps1 = con.prepareStatement(sql1);
+                rs1 = ps1.executeQuery();   
+                List<String> ls = new ArrayList<String>();
+                while(rs1.next()){
+                    String name = rs1.getString("misc_Name");
+                    ls.add(name);
+                }
+                ITEMNAME.setModel(new javax.swing.DefaultComboBoxModel(ls.toArray()));
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+          }
+        
+    }
+    private void ITEMNAMEActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_ITEMNAMEActionPerformed
+        Function1 f1 = new Function1();
+        Function2 f2 = new Function2();
+        ResultSet rs1, rs2;
+        PreparedStatement ps = null;
+        
+        rs1 = f1.find(ITEMNAME.getSelectedItem().toString());
+        rs2 = f2.find(ITEMNAME.getSelectedItem().toString()); 
+        if(Papers.isSelected()){
+            try{
+                if(rs1.next()){
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                    String sql = "SELECT * FROM paperstbl WHERE paper_Name = ? AND paper_qty = ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, ITEMNAME.getSelectedItem().toString());
+                    ps.setString(2, rs1.getString("paper_qty"));
+                    ps.executeQuery();
+                    String paperQty = rs1.getString("paper_qty");
+                    
+                    ItemCounter.setText(ITEMNAME.getSelectedItem().toString()+": "+ paperQty+" left");
 
-    private void ITEMNAMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ITEMNAMEActionPerformed
-        // TODO add your handling code here:
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        
+        if(MiscButton.isSelected()){
+            try{
+                if(rs2.next()){
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                    String sql = "SELECT * FROM misctbl WHERE misc_Name = ? AND misc_qty = ?";
+                    ps = con.prepareStatement(sql);
+                    ps.setString(1, ITEMNAME.getSelectedItem().toString());
+                    ps.setString(2, rs2.getString("misc_qty"));
+                    ps.executeQuery();
+                    String miscQty = rs2.getString("misc_qty");
+                    
+                    ItemCounter.setText(ITEMNAME.getSelectedItem().toString()+": "+ miscQty+" left");
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
     }//GEN-LAST:event_ITEMNAMEActionPerformed
-
+    
     private void AddItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddItemsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AddItemsActionPerformed
+        Function1 f1 = new Function1();
+        Function2 f2 = new Function2();
+        ResultSet rs1, rs2;
+        PreparedStatement ps1, ps2, ps3, ps4 = null;
+        rs1 = f1.find(ITEMNAME.getSelectedItem().toString());
+        rs2 = f2.find(ITEMNAME.getSelectedItem().toString());
+        EmployeeLogInPage login = new EmployeeLogInPage();
+        String username = login.getUser();
+        
+        try{
+            if(rs1.next()){
+                Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                String sql = "SELECT paper_qty FROM paperstbl WHERE paper_Name = ?";
+                ps1 = con1.prepareStatement(sql);
+                ps1.setString(1, ITEMNAME.getSelectedItem().toString());
+                ps1.executeQuery();
+                
+                int db_qty = Integer.parseInt(rs1.getString("paper_qty"));
+                int input_qty = Integer.parseInt(Quantity.getText());
+                
+                if(db_qty < input_qty){
+                    JOptionPane.showMessageDialog(null, "Insufficient number of items.");
+                } else{
+                    try{
+                        long millis = System.currentTimeMillis();
+                        Timestamp timestamp = new Timestamp(millis);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyy hh.mm.ss");
+                        String formatedStrDate = sdf.format(timestamp);
+                        Connection con2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                        
+                        String sql1 = "INSERT INTO pendingTbl VALUES (pending_Num, ?, ?, ?, ?)";
+                        String selectedItem = (String) ITEMNAME.getSelectedItem();
+                        
+                        ps2 = con1.prepareStatement(sql1);
+                        ps2.setTimestamp(1, timestamp);
+                        ps2.setString(2, username);
+                        ps2.setString(3, ITEMNAME.getSelectedItem().toString());
+                        ps2.setString(4, Quantity.getText());
 
+                        ps2.executeUpdate();
+                        JOptionPane.showMessageDialog(null, Quantity.getText() + " " + selectedItem + " added to list.");
+
+                    } catch(Exception e){
+                        JOptionPane.showMessageDialog(null, "Invalid Input");
+                    }
+                }
+            }
+            if(rs2.next()){
+                Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                String sql = "SELECT misc_qty FROM miscTbl WHERE misc_Name = ?";
+                ps3 = con.prepareStatement(sql);
+                ps3.setString(1, ITEMNAME.getSelectedItem().toString());
+                ps3.executeQuery();
+                String miscQty = rs2.getString("misc_qty");
+                
+                int db_qty = Integer.parseInt(rs2.getString("misc_qty"));
+                int input_qty = Integer.parseInt(Quantity.getText());
+                
+                if(db_qty < input_qty){
+                    JOptionPane.showMessageDialog(null, "Insufficient number of items.");
+                } else{
+                    try{
+                        long millis = System.currentTimeMillis();
+                        Timestamp timestamp = new Timestamp(millis);
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyy hh.mm.ss");
+                        String formatedStrDate = sdf.format(timestamp);
+                        Connection con4 = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+
+                        String sql1 = "INSERT INTO pendingTbl VALUES (pending_Num, ?, ?, ?, ?)";
+                        String selectedItem = (String) ITEMNAME.getSelectedItem();
+                        
+                        ps4 = con4.prepareStatement(sql1);
+                        ps4.setTimestamp(1, timestamp);
+                        ps4.setString(2, username);
+                        ps4.setString(3, ITEMNAME.getSelectedItem().toString());
+                        ps4.setString(4, Quantity.getText());
+
+                        ps4.executeUpdate();
+                        JOptionPane.showMessageDialog(null, Quantity.getText() + " " + selectedItem + " added to list.");
+
+                    } catch(Exception e){
+                        JOptionPane.showMessageDialog(null, "Invalid Input");
+                    }
+                }
+            }
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Invalid Input");
+        }
+    }//GEN-LAST:event_AddItemsActionPerformed
+    
+    private class Function1{
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        
+        public ResultSet find(String s1){
+            try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                ps = con.prepareStatement("SELECT * FROM papersTbl WHERE paper_Name = ?" );
+                ps.setString(1, ITEMNAME.getSelectedItem().toString());
+                rs = ps.executeQuery();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error1" + e.getMessage());
+            }
+            return rs;
+        }
+    }
+    
+    private class Function2{
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        
+        public ResultSet find(String s1){
+            try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                ps = con.prepareStatement("SELECT * FROM misctbl WHERE misc_Name = ?" );
+                ps.setString(1, ITEMNAME.getSelectedItem().toString());
+                rs = ps.executeQuery();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error1" + e.getMessage());
+            }
+            return rs;
+        }
+    }
+
+    
+   
     private void SubmitItemReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitItemReqActionPerformed
-        // TODO add your handling code here:
+        try{
+            ReceiptConfirmationPage rcp = new ReceiptConfirmationPage();
+            rcp.setVisible(true);
+            dispose();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
     }//GEN-LAST:event_SubmitItemReqActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
@@ -248,6 +472,7 @@ public class RequestItemPage extends javax.swing.JFrame {
     private javax.swing.JButton AddItems;
     private javax.swing.JButton BackButton;
     private javax.swing.JComboBox<String> ITEMNAME;
+    private javax.swing.JLabel ItemCounter;
     private javax.swing.ButtonGroup ItemType;
     private javax.swing.JRadioButton MiscButton;
     private javax.swing.JRadioButton Papers;
@@ -258,7 +483,5 @@ public class RequestItemPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
