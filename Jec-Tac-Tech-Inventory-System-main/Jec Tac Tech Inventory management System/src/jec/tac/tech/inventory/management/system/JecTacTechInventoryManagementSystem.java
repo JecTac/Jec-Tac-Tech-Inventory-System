@@ -15,12 +15,7 @@ public class JecTacTechInventoryManagementSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        WelcomeScreen ws = new WelcomeScreen();
-        ws.setVisible(true);
-        
-        dispose();
-
+        // TODO code application logic here
     }
     
 }

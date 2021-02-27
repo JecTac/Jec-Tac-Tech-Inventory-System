@@ -35,17 +35,19 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        EmployeeLogin = new javax.swing.JLabel();
         IDEntry = new javax.swing.JTextField();
         PasswordEntry = new javax.swing.JPasswordField();
         EnterID = new javax.swing.JLabel();
         EnterPassword = new javax.swing.JLabel();
         LogIn = new javax.swing.JButton();
         BackButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        EmployeeLogin = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        EmployeeLogin.setBackground(new java.awt.Color(102, 153, 255));
+        EmployeeLogin.setFont(new java.awt.Font("Bahnschrift", 0, 11)); // NOI18N
+        EmployeeLogin.setText("EMPLOYEE LOGIN");
 
         PasswordEntry.setText("jPasswordField1");
 
@@ -60,7 +62,6 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
             }
         });
 
-        BackButton.setBackground(new java.awt.Color(54, 68, 119));
         BackButton.setText("BACK");
         BackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -68,46 +69,21 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(196, 196, 196));
-
-        EmployeeLogin.setBackground(new java.awt.Color(102, 153, 255));
-        EmployeeLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        EmployeeLogin.setText("EMPLOYEE LOGIN");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(EmployeeLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(EmployeeLogin)
-                .addGap(8, 8, 8))
-        );
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jec/tac/tech/inventory/management/system/JECTAC Tech Logo Type 2 ICON.png"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(EmployeeLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                .addGap(5, 5, 5))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(EnterPassword)
                     .addComponent(EnterID)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(IDEntry)
-                        .addComponent(PasswordEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(PasswordEntry, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -117,24 +93,20 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(EmployeeLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
                 .addComponent(EnterID)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(IDEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
                 .addComponent(EnterPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PasswordEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BackButton)
-                    .addComponent(LogIn))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(LogIn)
+                    .addComponent(BackButton))
+                .addGap(0, 65, Short.MAX_VALUE))
         );
 
         pack();
@@ -262,7 +234,5 @@ public class EmployeeLogInPage extends javax.swing.JFrame {
     private javax.swing.JTextField IDEntry;
     private javax.swing.JButton LogIn;
     private javax.swing.JPasswordField PasswordEntry;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
