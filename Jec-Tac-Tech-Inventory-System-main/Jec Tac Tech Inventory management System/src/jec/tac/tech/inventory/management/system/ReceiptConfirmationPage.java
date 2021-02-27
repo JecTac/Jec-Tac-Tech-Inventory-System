@@ -1,5 +1,15 @@
 package jec.tac.tech.inventory.management.system;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -48,6 +58,11 @@ public class ReceiptConfirmationPage extends javax.swing.JFrame {
         jLabel1.setText("Request Confirmation");
 
         BackButton.setText("BACK");
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,30 +85,68 @@ public class ReceiptConfirmationPage extends javax.swing.JFrame {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        RequestConfirmTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Item Name", "Qty."
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Item", "Qty"}, 0);
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+            ps = con.prepareStatement("SELECT pending_Item, pending_Qty FROM pendingTbl" );
+            rs = ps.executeQuery();
+            
+            while(rs.next()) {
+                String item = rs.getString("pending_Item");
+                String qty = rs.getString("pending_Qty");
+                model.addRow(new Object[]{item, qty});
+                
             }
-        ));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        RequestConfirmTable.setModel(model);
+        
+        int count = RequestConfirmTable.getRowCount();
+        int total = 0;
+        for (int i = 0; i < count; i++){
+            int value =Integer.parseInt((String) RequestConfirmTable.getModel().getValueAt(i, 1));
+            total += value;
+        }
+        String totalItems = String.valueOf(total + " items");
+        
+        if(count == 0){
+            DeleteButton.setEnabled(false);
+            ConfirmButton.setEnabled(false);
+        }
+        
         jScrollPane1.setViewportView(RequestConfirmTable);
 
         AddButton.setText("ADD");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddButtonActionPerformed(evt);
+            }
+        });
 
         DeleteButton.setText("DELETE");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
 
         ConfirmButton.setText("CONFIRM");
+        ConfirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConfirmButtonActionPerformed(evt);
+            }
+        });
+        
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Total:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("0");
+        jLabel3.setText(totalItems);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,7 +190,62 @@ public class ReceiptConfirmationPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        RequestItemPage rip = new RequestItemPage();
+        rip.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_AddButtonActionPerformed
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        
+        if (JOptionPane.showConfirmDialog(null, "This would delete ALL items in your request list. Would you like to proceed?", "WARNING",
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            dispose();
+            Connection con = null;
+            //ResultSet rs = null;
+            PreparedStatement ps = null;
+            try {
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                ps = con.prepareStatement("DELETE FROM pendingTbl" );
+                ps.executeUpdate();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error1" + e.getMessage());
+            }
+            RequestItemPage rip = new RequestItemPage();
+            rip.setVisible(true);
+        }
+    }//GEN-LAST:event_AddButtonActionPerformed
+    
+    private void ConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement ps = null;
+        
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+            ps = con.prepareStatement("INSERT INTO itemReqTbl SELECT * FROM pendingTbl" );
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Item Request Successful");
+            dispose();    
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error1" + e.getMessage());
+        }
+        
+        try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/jectactechdb?zeroDateTimeBehavior=convertToNull", "root", "password");
+                ps = con.prepareStatement("DELETE FROM pendingTbl" );
+                ps.executeUpdate();
+        }catch(Exception e){
+           JOptionPane.showMessageDialog(null,"Error1" + e.getMessage());
+        }
+        ReceiptConfirmationPage rcp = new ReceiptConfirmationPage();
+        rcp.setVisible(true);
+    }//GEN-LAST:event_AddButtonActionPerformed
+    
+     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        RequestItemPage rip = new RequestItemPage();
+        rip.setVisible(true);
+        dispose();
+    }
     /**
      * @param args the command line arguments
      */
